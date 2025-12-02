@@ -1,3 +1,25 @@
+def operation(symbol)
+  case symbol
+  when "L"
+    :-
+  when "R"
+    :+
+  end
+end
+
+def find_password(input)
+  counter = 0
+  current = 50
+  input.each do |el|
+    direction = el[0]
+    movement = el[1..].to_i
+    current = current.send(operation(direction), movement) % 100
+    puts current
+    counter += 1 if current.zero?
+  end
+  counter
+end
+
 input = "L44
 R35
 R4
@@ -4411,32 +4433,4 @@ R16
 L1
 R47
 ".split("\n")
-
-i = 100 + i if i < 0
-
-# 1.send(operation("R"), 1)
-def operation(symbol)
-  case symbol
-  when "L"
-    :-
-  when "R"
-    :+
-  end
-end
-
-def find_password(input)
-  counter = 0
-  current = 50
-  input.each do |el|
-    direction = el[0]
-    movement = el[1..].to_i
-    current = current.send(operation(direction), movement) % 100
-    puts current
-    counter += 1 if current.zero?
-  end
-  counter
-end
-
-# fails on e.g. 500 or -629. unify:
-# current > 99 current = 100 - current and current = 100 + current to
-# current = current % 100 every time
+puts find_password(input)
